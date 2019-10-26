@@ -3,4 +3,8 @@
     <string name="login">Login</string>
     <string name="signup">No account yet? Create one</string>
     <string name="register">Sign Up</string>
+    <string-array name="register_array">
+        <item>I am a subletter</item>
+        <item>I am looking for a subletter</item>
+    </string-array>
 </resources>
