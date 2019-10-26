@@ -1,5 +1,6 @@
 package com.example.android.myapplication;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v7.app.ActionBar;
@@ -15,6 +16,9 @@ import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseAuthEmailException;
+import com.google.firebase.auth.FirebaseAuthException;
+import com.google.firebase.auth.FirebaseAuthInvalidCredentialsException;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
@@ -34,7 +38,7 @@ public class SignUpActivity extends AppCompatActivity implements View.OnClickLis
     private EditText mPasswordField;
     private EditText mConfirmPasswordField;
 
-    private Button mSignupButton;
+    private Button mSignUpButton;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -53,8 +57,8 @@ public class SignUpActivity extends AppCompatActivity implements View.OnClickLis
         mPasswordField = findViewById(R.id.input_password);
         mConfirmPasswordField = findViewById(R.id.input_password_confirm);
 
-        mSignupButton = findViewById(R.id.start_button);
-        mSignupButton.setOnClickListener(this);
+        mSignUpButton = findViewById(R.id.start_button);
+        mSignUpButton.setOnClickListener(this);
 
     }
 
@@ -80,9 +84,9 @@ public class SignUpActivity extends AppCompatActivity implements View.OnClickLis
         String email = mEmailField.getText().toString();
         String password = mPasswordField.getText().toString();
         String confirmPassword = mConfirmPasswordField.getText().toString();
-        System.out.println(email);
-        System.out.println(password);
-        System.out.println("adksafdfasdfsdfsfsf");
+//        System.out.println(email);
+//        System.out.println(password);
+//        System.out.println("adksafdfasdfsdfsfsf");
 
 //        User user = new User(name, phoneNumber, email, password);
 //
@@ -90,7 +94,6 @@ public class SignUpActivity extends AppCompatActivity implements View.OnClickLis
 
         mAuth.createUserWithEmailAndPassword(email, password)
                 .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
-
 
                     @Override
                     public void onComplete(@NonNull Task<AuthResult> task) {
@@ -100,8 +103,23 @@ public class SignUpActivity extends AppCompatActivity implements View.OnClickLis
                         if (task.isSuccessful()) {
                             onAuthSuccess(task.getResult().getUser());
                         } else {
-                            Toast.makeText(SignUpActivity.this, "Sign Up Failed",
-                                    Toast.LENGTH_SHORT).show();
+                            try {
+                                throw task.getException();
+                            }
+                            catch (FirebaseAuthInvalidCredentialsException e) {
+                                Toast.makeText(getApplicationContext(), "Password must be at least 6 characters!",
+                                        Toast.LENGTH_LONG).show();
+                            }
+                            catch (FirebaseAuthEmailException e){
+                                Toast.makeText(getApplicationContext(), "Invalid Email", Toast.LENGTH_LONG).show();
+                            }
+                            catch (FirebaseAuthException e){
+                                Toast.makeText(getApplicationContext(), "Email already exists!",
+                                        Toast.LENGTH_LONG).show();
+                            }
+                            catch (Exception e) {
+                                e.printStackTrace();
+                            }
                         }
                     }
                 });
@@ -138,6 +156,17 @@ public class SignUpActivity extends AppCompatActivity implements View.OnClickLis
             mPasswordField.setError(null);
         }
 
+        if (TextUtils.isEmpty(mConfirmPasswordField.getText().toString())) {
+            mConfirmPasswordField.setError("Required");
+            result = false;
+        } else if (mConfirmPasswordField.getText().toString() == (mPasswordField.getText().toString())){
+            mConfirmPasswordField.setError("Passwords must match!");
+            result = false;
+        } else {
+            mConfirmPasswordField.setError(null);
+        }
+
+
         return result;
     }
 
@@ -150,7 +179,7 @@ public class SignUpActivity extends AppCompatActivity implements View.OnClickLis
         writeNewUser(user.getUid(), name, user.getEmail());
 
         // Go to MainActivity
-//        startActivity(new Intent(LoginActivity.this, LoginActivity.class));
+        startActivity(new Intent(SignUpActivity.this, MainActivity.class));
         finish();
     }
 
