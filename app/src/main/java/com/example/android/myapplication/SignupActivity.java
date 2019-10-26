@@ -5,6 +5,8 @@ import android.os.Bundle;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
+import android.webkit.WebSettings;
+import android.webkit.WebView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.Spinner;
@@ -17,6 +19,7 @@ public class SignupActivity extends AppCompatActivity {
 
     @BindView(R.id.spinner) Spinner spinner;
     @BindView(R.id.register_button) Button registerButton;
+    @BindView(R.id.mybrowser) WebView webView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -33,13 +36,14 @@ public class SignupActivity extends AppCompatActivity {
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         spinner.setAdapter(adapter);
 
-        registerButton.setOnClickListener(new View.OnClickListener() {
+        WebSettings webSettings = webView.getSettings();
+        webSettings.setJavaScriptEnabled(true);
+        webView.loadUrl("file:///android_asset/click.html");
 
-            @Override
-            public void onClick(View view) {
-                Intent registerIntent = new Intent(SignupActivity.this, MainActivity.class);
-                startActivity(registerIntent);
-            }
+
+        registerButton.setOnClickListener(view -> {
+            Intent registerIntent = new Intent(SignupActivity.this, MainActivity.class);
+            startActivity(registerIntent);
         });
     }
 }

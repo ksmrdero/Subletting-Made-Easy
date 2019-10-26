@@ -8,7 +8,7 @@
     <LinearLayout
         android:orientation="vertical"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="match_parent"
         android:paddingTop="56dp"
         android:paddingLeft="24dp"
         android:paddingRight="24dp">
@@ -86,8 +86,15 @@
             android:layout_width="fill_parent"
             android:layout_height="wrap_content" />
 
+        <WebView
+            android:id="@+id/mybrowser"
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent"
+            />
+
         <android.support.design.button.MaterialButton
             android:id="@+id/register_button"
+
             style="@style/Widget.MaterialComponents.Button.UnelevatedButton"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
@@ -98,6 +105,5 @@
             android:backgroundTint="@color/colorAccentDark"
             android:textColor="@color/white"
             android:fontFamily="@font/quicksand_bold"/>
-
     </LinearLayout>
 </android.support.constraint.ConstraintLayout>
