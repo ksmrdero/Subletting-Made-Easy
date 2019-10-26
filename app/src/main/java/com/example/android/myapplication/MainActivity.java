@@ -15,12 +15,19 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
-    public void getInstance() {
-        // Write a message to the database
-        FirebaseDatabase database = FirebaseDatabase.getInstance();
-        DatabaseReference myRef = database.getReference("message");
+//    TODO: an Adapter class and create an instance of it
+//    https://developer.android.com/reference/android/widget/ListView
+//    https://developer.android.com/guide/topics/ui/declaring-layout.html#FillingTheLayout
 
-        myRef.setValue("Hello, World!");
+//    Listing
+    class Listing {
+        String name;
+        String address;
+        double price;
+
+        Listing(String name, String address, double price) {
+            this.name = name;
+            this.address = address;
+        }
     }
-
 }
