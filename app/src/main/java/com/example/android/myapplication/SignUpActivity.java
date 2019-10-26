@@ -79,11 +79,9 @@ public class SignUpActivity extends AppCompatActivity implements View.OnClickLis
         }
 
 //        showProgressDialog();
-        String name = mNameField.getText().toString();
-        String phoneNumber = mPhoneField.getText().toString();
         String email = mEmailField.getText().toString();
         String password = mPasswordField.getText().toString();
-        String confirmPassword = mConfirmPasswordField.getText().toString();
+
 //        System.out.println(email);
 //        System.out.println(password);
 //        System.out.println("adksafdfasdfsdfsfsf");
@@ -175,8 +173,8 @@ public class SignUpActivity extends AppCompatActivity implements View.OnClickLis
         String name = usernameFromEmail(user.getEmail());
 
         // Write new user
-//        writeNewUser(user.getUid(), name, user.getPhoneNumber(), user.getEmail());
         writeNewUser(user.getUid(), name, user.getEmail());
+//        writeNewUser(user.getUid(), name, user.getEmail());
 
         // Go to MainActivity
         startActivity(new Intent(SignUpActivity.this, MainActivity.class));
@@ -192,18 +190,25 @@ public class SignUpActivity extends AppCompatActivity implements View.OnClickLis
     }
 
 
-    // [START basic_write]
-//    private void writeNewUser(String userId, String name, String phoneNumber, String email) {
-////        User user = new User(name, phoneNumber, email, password);
-//        User user = new User(name, phoneNumber, email);
+//     [START basic_write]
+    private void writeNewUser(String userId, String name, String email) {
+//        User user = new User(name, phoneNumber, email, password);
+        User user = new User(name, email);
+        mDatabase.child("userAuth").child(userId).setValue(user);
+
+
+        String firstname = mNameField.getText().toString();
+        String phoneNumber = mPhoneField.getText().toString();
+        String password = mPasswordField.getText().toString();
+        User userInfo = new User(firstname, phoneNumber, email, password);
+        mDatabase.child("userInfo").setValue(userInfo);
+    }
+
+//    private void writeNewUser(String userId, String name, String email) {
+//        User user = new User(name, email);
+//
 //        mDatabase.child("users").child(userId).setValue(user);
 //    }
-
-    private void writeNewUser(String userId, String name, String email) {
-        User user = new User(name, email);
-
-        mDatabase.child("users").child(userId).setValue(user);
-    }
 
     // [END basic_write]
 

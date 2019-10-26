@@ -27,8 +27,8 @@ public class User {
         this.email = email;
     }
 
-    public User(String email, String password) {
-        this.email = email;
+    public User(String name, String password) {
+        this.firstName = name;
         this.password = password;
     }
 }
