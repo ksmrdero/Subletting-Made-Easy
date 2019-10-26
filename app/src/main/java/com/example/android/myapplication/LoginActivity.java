@@ -5,9 +5,10 @@ import android.os.Bundle;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
-import android.widget.Toast;
+
 
 public class LoginActivity extends AppCompatActivity {
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -17,11 +18,15 @@ public class LoginActivity extends AppCompatActivity {
         if (actionBar != null) {
             actionBar.hide();
         }
-        Toast.makeText(LoginActivity.this, "connection success", Toast.LENGTH_LONG).show();
+
+        // Testing firebase connection
+//        Toast.makeText(LoginActivity.this, "connection success", Toast.LENGTH_LONG).show();
+
     }
 
+
     public void register(View view) {
-        Intent intent = new Intent(LoginActivity.this, SignupActivity.class);
+        Intent intent = new Intent(LoginActivity.this, SignUpActivity.class);
         startActivity(intent);
     }
 
