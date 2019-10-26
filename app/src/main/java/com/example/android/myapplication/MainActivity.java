@@ -24,6 +24,7 @@ public class MainActivity extends AppCompatActivity {
         Listing(String name, String address, double price) {
             this.name = name;
             this.address = address;
+            this.price = price;
         }
     }
 }
