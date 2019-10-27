@@ -36,6 +36,7 @@ public class SignUpActivity extends AppCompatActivity implements View.OnClickLis
 
     private static final String TAG = "SignUpActivity";
     private static final String BUYER_INDICATOR = "I am looking for a subletter";
+    static final String EMAIL = "EMAIL";
 
     // [START declare_database_ref]
     private DatabaseReference mDatabase;
@@ -51,6 +52,8 @@ public class SignUpActivity extends AppCompatActivity implements View.OnClickLis
 
     private Button mSignUpButton;
 
+    private String email;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
 
@@ -65,10 +68,6 @@ public class SignUpActivity extends AppCompatActivity implements View.OnClickLis
                 R.array.register_array, android.R.layout.simple_spinner_item);
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         spinner.setAdapter(adapter);
-
-//        WebSettings webSettings = webView.getSettings();
-//        webSettings.setJavaScriptEnabled(true);
-//        webView.loadUrl("file:///android_asset/click.html");
 
         mDatabase = FirebaseDatabase.getInstance().getReference();
         mAuth = FirebaseAuth.getInstance();
@@ -103,7 +102,7 @@ public class SignUpActivity extends AppCompatActivity implements View.OnClickLis
         }
 
 //        showProgressDialog();
-        String email = mEmailField.getText().toString();
+        email = mEmailField.getText().toString();
         String password = mPasswordField.getText().toString();
 
         mAuth.createUserWithEmailAndPassword(email, password)
@@ -198,8 +197,10 @@ public class SignUpActivity extends AppCompatActivity implements View.OnClickLis
             writeNewSeller(user.getUid(), user.getEmail());
         }
 
-        // Go to MainActivity
-        startActivity(new Intent(SignUpActivity.this, MainActivity.class));
+        // Go to DocusignActivity
+        Intent intent = new Intent(SignUpActivity.this, DocusignActivity.class);
+        intent.putExtra(EMAIL, email);
+        startActivity(intent);
         finish();
     }
 

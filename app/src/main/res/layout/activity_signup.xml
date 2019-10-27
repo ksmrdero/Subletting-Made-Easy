@@ -86,12 +86,6 @@
             android:layout_width="fill_parent"
             android:layout_height="wrap_content" />
 
-<!--        <WebView-->
-<!--            android:id="@+id/mybrowser"-->
-<!--            android:layout_width="fill_parent"-->
-<!--            android:layout_height="fill_parent"-->
-<!--            />-->
-
         <android.support.design.button.MaterialButton
             android:id="@+id/register_button"
 
