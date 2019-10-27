@@ -84,22 +84,12 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
     }
 
     private void onAuthSuccess(FirebaseUser user) {
-        String username = usernameFromEmail(user.getEmail());
-
         // Write new user
 //        writeNewUser(user.getUid(), username, user.getEmail());
 
         // Go to MainActivity
         startActivity(new Intent(LoginActivity.this, MainActivity.class));
         finish();
-    }
-
-    private String usernameFromEmail(String email) {
-        if (email.contains("@")) {
-            return email.split("@")[0];
-        } else {
-            return email;
-        }
     }
 
     private boolean validateForm() {

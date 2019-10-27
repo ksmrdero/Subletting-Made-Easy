@@ -221,15 +221,15 @@ public class SignUpActivity extends AppCompatActivity implements View.OnClickLis
     private void writeNewBuyer(String userId, String email) {
         String firstName = mNameField.getText().toString();
         String phoneNumber = mPhoneField.getText().toString();
-        Buyer buyer = new Buyer(firstName, phoneNumber, email);
-        mDatabase.child("buyer").child(userId).setValue(buyer);
+        User buyer = new Buyer(firstName, phoneNumber, email, false);
+        mDatabase.child("user").child(userId).setValue(buyer);
     }
 
     private void writeNewSeller(String userId, String email) {
         String firstName = mNameField.getText().toString();
         String phoneNumber = mPhoneField.getText().toString();
-        Seller seller = new Seller(firstName, phoneNumber, email);
-        mDatabase.child("seller").child(userId).setValue(seller);
+        User seller = new Seller(firstName, phoneNumber, email, true);
+        mDatabase.child("user").child(userId).setValue(seller);
     }
 
     // [END basic_write]

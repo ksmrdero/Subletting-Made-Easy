@@ -1,6 +1,6 @@
 package com.example.android.myapplication;
 
-public class Listings {
+public class Listing {
     public String streetAddress;
     public String city;
     public String country;
@@ -14,12 +14,12 @@ public class Listings {
     public int minimumCredit;
     public String duration;
 
-    public Listings(){
+    public Listing(){
 
     }
 
-    public Listings(String streetAddress, String city, String country, String zip, int price, int occupancy,
-                    String description, boolean canNegotiate, int minimumCredit, String duration) {
+    public Listing(String streetAddress, String city, String country, String zip, int price, int occupancy,
+                   String description, boolean canNegotiate, int minimumCredit, String duration) {
         this.streetAddress = streetAddress;
         this.city = city;
         this.country = country;
