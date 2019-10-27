@@ -64,9 +64,9 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void addDefaultListings() {
-        Listing one = new Listing("12345 Yeet St.", 12.0, 3, "Desc.");
-        Listing two = new Listing("12345 Yeet St.", 100.0, 3, "Desc.");
-        Listing three = new Listing("12345 Yeet St.", 100.0, 3, "Desc.");
+        Listing one = new Listing("12345 Go Bears St.", 12.0, 3, "Desc.");
+        Listing two = new Listing("6 CalHacks Ave.", 100.0, 3, "Desc.");
+        Listing three = new Listing("2019 HackItUp Highway", 100.0, 3, "Desc.");
         mockListings.add(one);
         mockListings.add(two);
         mockListings.add(three);
@@ -92,10 +92,8 @@ public class MainActivity extends AppCompatActivity {
                 int numRooms = Integer.parseInt(attrs.get("numRooms").toString());
                 String description = attrs.get("description").toString();
                 Listing newListing = new Listing(address, price, numRooms, description);
-                Listing three = new Listing("12345 Yeet St.", 100.0, 3, "Desc.");
                 System.out.println(address + ' ' + description);
                 mockListings.add(newListing);
-                mockListings.add(three);
                 System.out.println("asdfasdafsdf");
                 System.out.println(mockListings.size());
 //                System.out.println("Author: " + newPost.get("author"));
