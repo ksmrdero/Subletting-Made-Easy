@@ -91,9 +91,9 @@ public class SignUpActivity extends AppCompatActivity implements View.OnClickLis
 
         // Check auth on Activity start
         // NOTE: TOGGLE FOR AUTOMATIC LOGIN!
-//        if (mAuth.getCurrentUser() != null) {
-//            onAuthSuccess(mAuth.getCurrentUser());
-//        }
+        if (mAuth.getCurrentUser() != null) {
+            onAuthSuccess(mAuth.getCurrentUser());
+        }
     }
 
     private void signUp() {
