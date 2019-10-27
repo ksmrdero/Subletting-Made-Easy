@@ -82,7 +82,7 @@
         </android.support.design.widget.TextInputLayout>
 
         <Spinner
-            android:id="@+id/spinner"
+            android:id="@+id/buy_or_sell"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content" />
 

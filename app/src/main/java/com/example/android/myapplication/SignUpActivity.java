@@ -8,8 +8,6 @@ import android.support.v7.app.AppCompatActivity;
 import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
-import android.webkit.WebSettings;
-import android.webkit.WebView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
@@ -33,10 +31,11 @@ import butterknife.ButterKnife;
 
 public class SignUpActivity extends AppCompatActivity implements View.OnClickListener {
 
-    @BindView(R.id.spinner) Spinner spinner;
+    @BindView(R.id.buy_or_sell) Spinner spinner;
 //    @BindView(R.id.mybrowser) WebView webView;
 
     private static final String TAG = "SignUpActivity";
+    private static final String BUYER_INDICATOR = "I am looking for a subletter";
 
     // [START declare_database_ref]
     private DatabaseReference mDatabase;
@@ -48,6 +47,7 @@ public class SignUpActivity extends AppCompatActivity implements View.OnClickLis
     private EditText mEmailField;
     private EditText mPasswordField;
     private EditText mConfirmPasswordField;
+    private String mBuyerOrSeller;
 
     private Button mSignUpButton;
 
@@ -78,6 +78,8 @@ public class SignUpActivity extends AppCompatActivity implements View.OnClickLis
         mEmailField = findViewById(R.id.input_email);
         mPasswordField = findViewById(R.id.input_password);
         mConfirmPasswordField = findViewById(R.id.input_password_confirm);
+        Spinner spinBuyOrSell = findViewById(R.id.buy_or_sell);
+        mBuyerOrSeller = spinBuyOrSell.getSelectedItem().toString();
 
         mSignUpButton = findViewById(R.id.register_button);
         mSignUpButton.setOnClickListener(this);
@@ -88,9 +90,10 @@ public class SignUpActivity extends AppCompatActivity implements View.OnClickLis
         super.onStart();
 
         // Check auth on Activity start
-        if (mAuth.getCurrentUser() != null) {
-            onAuthSuccess(mAuth.getCurrentUser());
-        }
+        // NOTE: TOGGLE FOR AUTOMATIC LOGIN!
+//        if (mAuth.getCurrentUser() != null) {
+//            onAuthSuccess(mAuth.getCurrentUser());
+//        }
     }
 
     private void signUp() {
@@ -102,14 +105,6 @@ public class SignUpActivity extends AppCompatActivity implements View.OnClickLis
 //        showProgressDialog();
         String email = mEmailField.getText().toString();
         String password = mPasswordField.getText().toString();
-
-//        System.out.println(email);
-//        System.out.println(password);
-//        System.out.println("adksafdfasdfsdfsfsf");
-
-//        User user = new User(name, phoneNumber, email, password);
-//
-//        mDatabase.child("users").setValue(user);
 
         mAuth.createUserWithEmailAndPassword(email, password)
                 .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
@@ -126,11 +121,13 @@ public class SignUpActivity extends AppCompatActivity implements View.OnClickLis
                                 throw task.getException();
                             }
                             catch (FirebaseAuthInvalidCredentialsException e) {
-                                Toast.makeText(getApplicationContext(), "Password must be at least 6 characters!",
+                                Toast.makeText(getApplicationContext(),
+                                        "Password must be at least 6 characters!",
                                         Toast.LENGTH_LONG).show();
                             }
                             catch (FirebaseAuthEmailException e){
-                                Toast.makeText(getApplicationContext(), "Invalid Email", Toast.LENGTH_LONG).show();
+                                Toast.makeText(getApplicationContext(), "Invalid Email Entered!",
+                                        Toast.LENGTH_LONG).show();
                             }
                             catch (FirebaseAuthException e){
                                 Toast.makeText(getApplicationContext(), "Email already exists!",
@@ -148,24 +145,30 @@ public class SignUpActivity extends AppCompatActivity implements View.OnClickLis
     private boolean validateForm() {
         boolean result = true;
         if (TextUtils.isEmpty(mNameField.getText().toString())) {
-            mEmailField.setError("Required");
+            mNameField.setError("Required");
             result = false;
         } else {
-            mEmailField.setError(null);
+            mNameField.setError(null);
         }
 
         if (TextUtils.isEmpty(mPhoneField.getText().toString())) {
-            mPasswordField.setError("Required");
+            mPhoneField.setError("Required");
             result = false;
         } else {
-            mPasswordField.setError(null);
+            mPhoneField.setError(null);
         }
 
-        if (TextUtils.isEmpty(mEmailField.getText().toString())) {
-            mPasswordField.setError("Required");
+
+        String inputEmail = mEmailField.getText().toString();
+
+        if (TextUtils.isEmpty(inputEmail)) {
+            mEmailField.setError("Required");
+            result = false;
+        } else if (!isEduEmail(inputEmail)) {
+            mEmailField.setError("Email must be .edu");
             result = false;
         } else {
-            mPasswordField.setError(null);
+            mEmailField.setError(null);
         }
 
         if (TextUtils.isEmpty(mPasswordField.getText().toString())) {
@@ -191,11 +194,13 @@ public class SignUpActivity extends AppCompatActivity implements View.OnClickLis
 
 
     private void onAuthSuccess(FirebaseUser user) {
-        String name = usernameFromEmail(user.getEmail());
-
         // Write new user
-        writeNewUser(user.getUid(), name, user.getEmail());
-//        writeNewUser(user.getUid(), name, user.getEmail());
+
+        if (mBuyerOrSeller.equals(BUYER_INDICATOR)) {
+            writeNewBuyer(user.getUid(), user.getEmail());
+        } else {
+            writeNewSeller(user.getUid(), user.getEmail());
+        }
 
         // Go to MainActivity
         startActivity(new Intent(SignUpActivity.this, MainActivity.class));
@@ -210,26 +215,26 @@ public class SignUpActivity extends AppCompatActivity implements View.OnClickLis
         }
     }
 
-
-    //     [START basic_write]
-    private void writeNewUser(String userId, String name, String email) {
-//        User user = new User(name, phoneNumber, email, password);
-        User user = new User(name, email);
-        mDatabase.child("userAuth").child(userId).setValue(user);
-
-
-        String firstname = mNameField.getText().toString();
-        String phoneNumber = mPhoneField.getText().toString();
-        String password = mPasswordField.getText().toString();
-        User userInfo = new User(firstname, phoneNumber, email, password);
-        mDatabase.child("userInfo").setValue(userInfo);
+    private boolean isEduEmail(String email) {
+        return email.substring(email.length() - 3).equals("edu");
     }
 
-//    private void writeNewUser(String userId, String name, String email) {
-//        User user = new User(name, email);
-//
-//        mDatabase.child("users").child(userId).setValue(user);
-//    }
+
+    //     [START basic_write]
+
+    private void writeNewBuyer(String userId, String email) {
+        String firstName = mNameField.getText().toString();
+        String phoneNumber = mPhoneField.getText().toString();
+        Buyer buyer = new Buyer(firstName, phoneNumber, email);
+        mDatabase.child("buyer").child(userId).setValue(buyer);
+    }
+
+    private void writeNewSeller(String userId, String email) {
+        String firstName = mNameField.getText().toString();
+        String phoneNumber = mPhoneField.getText().toString();
+        Seller seller = new Seller(firstName, phoneNumber, email);
+        mDatabase.child("seller").child(userId).setValue(seller);
+    }
 
     // [END basic_write]
 
