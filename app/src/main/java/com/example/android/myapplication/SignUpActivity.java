@@ -177,7 +177,7 @@ public class SignUpActivity extends AppCompatActivity implements View.OnClickLis
         if (TextUtils.isEmpty(mConfirmPasswordField.getText().toString())) {
             mConfirmPasswordField.setError("Required");
             result = false;
-        } else if (mConfirmPasswordField.getText().toString() == (mPasswordField.getText().toString())){
+        } else if (!mConfirmPasswordField.getText().toString().equals(mPasswordField.getText().toString())){
             mConfirmPasswordField.setError("Passwords must match!");
             result = false;
         } else {
