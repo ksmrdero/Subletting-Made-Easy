@@ -76,8 +76,8 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                         if (task.isSuccessful()) {
                             onAuthSuccess(task.getResult().getUser());
                         } else {
-                            Toast.makeText(LoginActivity.this, "Sign In Failed",
-                                    Toast.LENGTH_SHORT).show();
+                            Toast.makeText(LoginActivity.this, "Invalid email or password",
+                                    Toast.LENGTH_LONG).show();
                         }
                     }
                 });
