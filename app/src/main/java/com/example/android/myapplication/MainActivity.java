@@ -1,6 +1,9 @@
 package com.example.android.myapplication;
 
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
@@ -33,7 +36,7 @@ public class MainActivity extends AppCompatActivity {
         ArrayList<Listing> mockListings = new ArrayList<>();
         mockListings.add(new Listing("One", "12345 Yeet St.", 100.0, 3, "Desc."));
         mockListings.add(new Listing("Two", "12345 Yeet St.", 100.0, 3, "Desc."));
-        mockListings.add(new Listing("Three", "12345 Yeet St.", 100.0, 3, "Desc."));
+        mockListings.add(new Listing("Three", "12345 Yeet St.", 100.0, 3, "Desc.", Drawable.createFromPath("../drawable/test.jpg")));
 
         mAdapter = new ListingAdapter(this, mockListings);
         listView.setAdapter(mAdapter);
@@ -51,6 +54,7 @@ public class MainActivity extends AppCompatActivity {
         double price;
         int numRooms;
         String description;
+        Drawable image = null;
 
         Listing(String name, String address, double price, int numRooms, String description) {
             this.name = name;
@@ -59,6 +63,16 @@ public class MainActivity extends AppCompatActivity {
             this.numRooms = numRooms;
             this.description = description;
         }
+
+        Listing(String name, String address, double price, int numRooms, String description, Drawable image) {
+            this.name = name;
+            this.address = address;
+            this.price = price;
+            this.numRooms = numRooms;
+            this.description = description;
+            this.image = image;
+        }
+
 
         public String getName() {
             return name;
@@ -79,5 +93,7 @@ public class MainActivity extends AppCompatActivity {
         public String getDescription() {
             return description;
         }
-    }
+
+        public Drawable getImage() { return image; }
+}
 }
