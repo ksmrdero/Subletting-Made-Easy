@@ -119,21 +119,17 @@ public class SignUpActivity extends AppCompatActivity implements View.OnClickLis
                         } else {
                             try {
                                 throw task.getException();
-                            }
-                            catch (FirebaseAuthInvalidCredentialsException e) {
+                            } catch (FirebaseAuthInvalidCredentialsException e) {
                                 Toast.makeText(getApplicationContext(),
                                         "Password must be at least 6 characters!",
                                         Toast.LENGTH_LONG).show();
-                            }
-                            catch (FirebaseAuthEmailException e){
+                            } catch (FirebaseAuthEmailException e){
                                 Toast.makeText(getApplicationContext(), "Invalid Email Entered!",
                                         Toast.LENGTH_LONG).show();
-                            }
-                            catch (FirebaseAuthException e){
+                            } catch (FirebaseAuthException e){
                                 Toast.makeText(getApplicationContext(), "Email already exists!",
                                         Toast.LENGTH_LONG).show();
-                            }
-                            catch (Exception e) {
+                            } catch (Exception e) {
                                 e.printStackTrace();
                             }
                         }
