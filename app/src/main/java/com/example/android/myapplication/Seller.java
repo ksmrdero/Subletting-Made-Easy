@@ -6,7 +6,7 @@ import java.util.ArrayList;
  * Class representing seller attributes
  */
 public class Seller {
-    public String userName;
+    public String username;
     public String phoneNumber;
     public String email;
     public String password;
@@ -16,8 +16,8 @@ public class Seller {
         // Default constructor required for calls to DataSnapshot.getValue(User.class)
     }
 
-    public Seller(String userName, String phoneNumber, String email) {
-        this.userName = userName;
+    public Seller(String username, String phoneNumber, String email) {
+        this.username = username;
         this.phoneNumber = phoneNumber;
         this.email = email;
         listings = new ArrayList<>();
