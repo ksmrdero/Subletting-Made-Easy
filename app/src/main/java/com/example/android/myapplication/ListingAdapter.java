@@ -12,14 +12,15 @@ import android.widget.TextView;
 import java.util.ArrayList;
 import java.util.List;
 
-public class ListingAdapter extends ArrayAdapter<MainActivity.Listing> {
+public class ListingAdapter extends ArrayAdapter<Listing> {
     private Context mContext;
-    private List<MainActivity.Listing> listings = new ArrayList<>();
+    private List<Listing> listings = new ArrayList<>();
 
-    public ListingAdapter(@NonNull Context context, @NonNull List<MainActivity.Listing> list) {
+    public ListingAdapter(@NonNull Context context, @NonNull List<Listing> list) {
         super(context, 0, list);
         mContext = context;
         listings = list;
+        System.out.println(list.size() + "IDENTIFY");
     }
 
     @Override
@@ -30,10 +31,7 @@ public class ListingAdapter extends ArrayAdapter<MainActivity.Listing> {
             listItem = LayoutInflater.from(mContext).inflate(R.layout.listing_item,parent,false);
         }
 
-        MainActivity.Listing currentListing = listings.get(position);
-
-        TextView name = (TextView) listItem.findViewById(R.id.listing_name);
-        name.setText(currentListing.getName());
+        Listing currentListing = listings.get(position);
 
         TextView address = (TextView) listItem.findViewById(R.id.listing_address);
         address.setText(currentListing.getAddress());
@@ -43,6 +41,9 @@ public class ListingAdapter extends ArrayAdapter<MainActivity.Listing> {
 
         TextView numRooms = (TextView) listItem.findViewById(R.id.listing_num_rooms);
         numRooms.setText(Integer.toString(currentListing.getNumRooms()));
+
+        TextView description = (TextView) listItem.findViewById(R.id.listing_description);
+        description.setText(currentListing.getDescription());
 
         return listItem;
     }

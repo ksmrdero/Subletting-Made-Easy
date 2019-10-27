@@ -15,18 +15,34 @@ public class Listing {
 //    public String duration;
 
     public String address;
-    public int price;
+    public double price;
     public int numRooms;
     public String description;
 
     public Listing(){
 
     }
-    public Listing(String address, int price, int numRooms, String description) {
+    public Listing(String address, double price, int numRooms, String description) {
         this.address = address;
         this.price = price;
         this.numRooms = numRooms;
         this.description = description;
+    }
+
+    public String getAddress() {
+        return address;
+    }
+
+    public double getPrice() {
+        return price;
+    }
+
+    public int getNumRooms() {
+        return numRooms;
+    }
+
+    public String getDescription() {
+        return description;
     }
 
 //    public Listing(String streetAddress, String city, String country, String zip, int price, int occupancy,
