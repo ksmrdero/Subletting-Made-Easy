@@ -6,16 +6,16 @@ import java.util.Comparator;
 import java.util.List;
 
 public class SortListings {
-    protected List<MainActivity.Listing> sort(List<MainActivity.Listing> list, int price, int numrooms){
-        List<MainActivity.Listing> rList = new ArrayList();
-        for (MainActivity.Listing l: list) {
+    protected List<Listing> sort(List<Listing> list, int price, int numrooms){
+        List<Listing> rList = new ArrayList();
+        for (Listing l: list) {
             if (l.getPrice() <= price && l.getNumRooms() == numrooms) {
                 rList.add(l);
             }
         }
-        Collections.sort(rList, new Comparator<MainActivity.Listing>() {
+        Collections.sort(rList, new Comparator<Listing>() {
             @Override
-            public int compare(MainActivity.Listing o1, MainActivity.Listing o2) {
+            public int compare(Listing o1, Listing o2) {
                 if (o1.getPrice() > o2.getPrice()) {
                     return 1;
                 } else if (o1.getPrice() == o2.getPrice()) {

@@ -100,6 +100,7 @@ public class ListingActivity extends AppCompatActivity implements View.OnClickLi
         String description = mDescription.getText().toString();
         Listing listing = new Listing(address, price, numRooms, description);
         mDatabase.child("user").child(userId).child("listing").child(address).setValue(listing);
+        mDatabase.child("listings").child(address).setValue(listing);
     }
 
     @Override
