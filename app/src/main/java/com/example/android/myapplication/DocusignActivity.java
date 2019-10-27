@@ -72,7 +72,7 @@ public class DocusignActivity extends AppCompatActivity {
             // TODO: Check if registered!
 
             try {
-                URL url = new URL("https://account-d.docusign.com/v1/accounts/3d72c2cd-fb2e-48dd-894c-2b7a6807ea44/clickwraps/43d6f948-e43a-4c6d-a1b0-f7c826ed7da1/users")
+                URL url = new URL("https://account-d.docusign.com/v1/accounts/3d72c2cd-fb2e-48dd-894c-2b7a6807ea44/clickwraps/43d6f948-e43a-4c6d-a1b0-f7c826ed7da1/users");
                 HttpURLConnection con = (HttpURLConnection) url.openConnection();
                 con.setRequestMethod("GET");
                 Map<String, String> parameters = new HashMap<>();
@@ -88,7 +88,7 @@ public class DocusignActivity extends AppCompatActivity {
                 con.setInstanceFollowRedirects(false);
                 int status = con.getResponseCode();
 
-                if(responsecode != 200) {
+                if(status != 200) {
                     registered = false;
                 }
                 else
