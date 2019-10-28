@@ -1,5 +1,7 @@
 # Subletting Made Easy
-![Homepage](homepage.jpg)
+<p align="center">
+  <img src="homepage.jpg" alt="Homepage"/>
+</p>
 
 Subletting Made Easy was made specifically to connect students who are looking to sublet thier apartments with those who are seeking for a place to stay. This platform makes finding and posting sublets as simple as possible, and provides an organized way to manage and display information. 
 
