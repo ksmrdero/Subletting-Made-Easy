@@ -1,5 +1,5 @@
 # Subletting Made Easy
-
+![Homepage](homepage.jpeg)
 Subletting Made Easy was made specifically to connect students who are looking to sublet thier apartments with those who are seeking for a place to stay. This platform makes finding and posting sublets as simple as possible, and provides an organized way to manage and display information. 
 
 ## Getting Started
